@@ -24,6 +24,7 @@ export const PageContratLocation = () => {
 
     //recuperation du vehicule choisis en state
     const [detailVehicule, setDetailVehicule] = useState({});
+    const [vehiculeId, setVehiculeId] = useState();
     //recuperation de la liste de locataires pour permettre un choix
     const [listLocataires, setListLocataires] = useState();
     //recuperation du locataire choisis en state
@@ -87,19 +88,13 @@ export const PageContratLocation = () => {
  * set l'objet contrat à l'init du composant
  */
     useEffect(() => {
-        serviceVehicules.seeVehiculesById(params.id)
-            .then((res) => setContrat({
-                ...contrat, ...contrat.vehicule, id:res.id
-      //          marque: (res.marque),
-      //          modele: (res.modele),
-      //          immatriculation: (res.immatriculation),
-      //          etat: (res.etat),
-      //          prixJournee: (res.prix),
-      //          disponibilite: (res.disponibilite),
-      //          type: (res.type),
-      //          idVehicule: (res.id)
-
-            }))
+    // serviceVehicules.seeVehiculesById(params.id)
+    //         .then(async (res) => await setContrat({
+    //             ...contrat, 
+    //             vehicule:{...contrat.vehicule,id:res.id}
+    //         }))
+    //         .then(()=> 
+            setVehiculeId(params.id)
     }, []);
     /**
   * USEEFFECT***************************************************************************************************************
@@ -177,13 +172,9 @@ export const PageContratLocation = () => {
     const handleSelection = () => {
         setDisplay(false)
         setContrat({
-            ...contrat,...contrat.locataire, id: selectedLocataire.id
-    //       nom: selectedLocataire.nom,
-    //     prenom: selectedLocataire.prenom,
-    //       dateDeNaissance: selectedLocataire.dateDeNaissance,
-    //      email: selectedLocataire.email,
-    //       telephone: selectedLocataire.telephone,
-    //      idLocataire: selectedLocataire.id
+            ...contrat,
+            locataire:{...contrat.locataire, id: selectedLocataire.id}, 
+            vehicule:{...contrat.vehicule, id:vehiculeId}
         })
     }
 
