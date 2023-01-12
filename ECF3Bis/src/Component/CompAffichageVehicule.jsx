@@ -17,6 +17,7 @@ export const CompAffichageVehicule = (props) => {
 const deleteVehicule=(event)=>{
     event.preventDefault()
     props.deleteVehicule(props.vehicule.id)
+    props.getVehicules()
 }
 
 /**

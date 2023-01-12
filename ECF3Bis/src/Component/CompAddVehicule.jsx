@@ -92,6 +92,8 @@ export const CompAddVehicule= (props) => {
  */
     const handleClick = (event) => {
         props.addVehicules(newVehicule)
+        props.setIsDisplayed(false)
+        props.getVehicules()
 
     }
     

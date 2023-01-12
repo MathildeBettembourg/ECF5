@@ -64,13 +64,13 @@ export const PageAffichageVehicules= () => {
         <h1 className="titlePage">Gestion des véhicules</h1>
         <div className="displayAddButton"> 
         <p>Ajouter un véhicule : </p>
-        {isDisplayed?<> <CompAddVehicule addVehicules={addVehicules} getVehicules={getVehicules}/>  <Button variant="danger" onClick={handleClichShow}>-</Button></>: <Button variant="success" onClick={handleClichShow}>+</Button>}
+        {isDisplayed?<> <CompAddVehicule addVehicules={addVehicules} getVehicules={getVehicules} setIsDisplayed={setIsDisplayed}/>  <Button variant="danger" onClick={handleClichShow}>-</Button></>: <Button variant="success" onClick={handleClichShow}>+</Button>}
         
          </div>
 
 
                 {vehiculesList.map((vehicule) => 
-                { return <CompAffichageVehicule vehicule={vehicule} deleteVehicule={deleteVehicule}/> })}
+                { return <CompAffichageVehicule vehicule={vehicule} deleteVehicule={deleteVehicule} getVehicules={getVehicules}/> })}
 
         </>
     )
