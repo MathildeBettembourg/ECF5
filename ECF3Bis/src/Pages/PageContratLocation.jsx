@@ -38,7 +38,7 @@ export const PageContratLocation = () => {
 
     //gestion du contrat
     const handleClickCreationContrat = () => {
-        setContrat({ ...contrat, fullstart: start, fullend: end, start: start.toLocaleDateString("fr"), end: end.toLocaleDateString("fr") })
+        setContrat({ ...contrat,  fullstart:start.toISOString(), fullend:end.toISOString()})
         setSendDisable(true)
         handleShow()
     }

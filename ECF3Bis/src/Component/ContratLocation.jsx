@@ -29,15 +29,15 @@ export const ContratLocation = () => {
     //recuperation de la durée de location et des daye des locations
     const [duree, setDuree] = useState();
     const [start, setStart] = useState();
-    const [end, setEnd] = useState();
-    const [prix, setPrix] = useState()
+     const [end, setEnd] = useState();
+     const [prix, setPrix] = useState()
     const [prixDuree, setPrixDuree] = useState();
     const [contrat, setContrat] = useState();
     
 
     //gestion du contrat
     const handleClickCreationContrat = () => {
-        setContrat({...contrat, fullstart:start, fullend:end, start:start.toLocaleDateString("fr"), end:end.toLocaleDateString("fr")})
+        setContrat({...contrat, fullstart:start.toISOString(), fullend:end.toISOString()});
         setSendDisable(true)
         handleShow()
     }
@@ -154,7 +154,7 @@ export const ContratLocation = () => {
         setContrat({
             ...contrat,
             locataire:{...contrat.locataire, id:selectedLocataire.id},
-            vehicule:{...contrat.vehicule, idVehicule: (selectedVehicule.id)}
+            vehicule:{...contrat.vehicule, id: (selectedVehicule.id)}
         })
     }
 
