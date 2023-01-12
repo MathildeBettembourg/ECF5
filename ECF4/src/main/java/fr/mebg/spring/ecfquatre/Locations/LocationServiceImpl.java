@@ -1,5 +1,7 @@
 package fr.mebg.spring.ecfquatre.Locations;
 
+import fr.mebg.spring.ecfquatre.Locataires.Locataire;
+import fr.mebg.spring.ecfquatre.Locataires.LocatairesService;
 import fr.mebg.spring.ecfquatre.Vehicules.Vehicule;
 import fr.mebg.spring.ecfquatre.Vehicules.VehiculeService;
 import org.slf4j.Logger;
@@ -15,11 +17,13 @@ import java.util.List;
 public class LocationServiceImpl implements LocationService {
     private final LocationRepository locationRepository;
     private final VehiculeService vehiculeService;
+    private final LocatairesService locataireService;
     private static final Logger logger = LoggerFactory.getLogger(LocationServiceImpl.class);
 
-    public LocationServiceImpl(LocationRepository locationRepository, VehiculeService vehiculeService) {
+    public LocationServiceImpl(LocationRepository locationRepository, VehiculeService vehiculeService, LocatairesService locataireService) {
         this.locationRepository = locationRepository;
         this.vehiculeService = vehiculeService;
+        this.locataireService=locataireService;
     }
 
     /**
@@ -42,22 +46,26 @@ public class LocationServiceImpl implements LocationService {
      */
     @Override
     public Location save(Location entity) {
-        Vehicule vehiculeALouer = this.vehiculeService.findById(entity.getVehicule().getId());
+        if(entity.getVehicule().getId()!=null && entity.getLocataire().getId()!=null) {
+            Vehicule vehiculeALouer = this.vehiculeService.findById(entity.getVehicule().getId());
+            Locataire locataireQuiLoue = this.locataireService.findById(entity.getLocataire().getId());
         logger.info("vehicule " + vehiculeALouer.getDisponibilite());
         //modification du status de disponibilité du vehicule
         vehiculeALouer.setDisponibilite(false);
-        logger.info("vehicule " + vehiculeALouer.getDisponibilite());
-        if (!this.vehiculeService.existsById(vehiculeALouer.getId())) {
-            logger.info("not found");
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-        } else {
-            logger.info("Entite LOCATION sauvee en base de donnée " + vehiculeALouer.getModele());
-            this.vehiculeService.modificationVehiculeById(vehiculeALouer.getId(), vehiculeALouer);
-        }
-        entity.setDateModification(LocalDateTime.now());
+        //logger.info("vehicule " + vehiculeALouer.getDisponibilite());
+//        if (!this.vehiculeService.existsById(vehiculeALouer.getId())) {
+//            logger.info("not found");
+//            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+//        } else {
+//            logger.info("Entite LOCATION sauvee en base de donnée " + vehiculeALouer.getModele());
+//            this.vehiculeService.modificationVehiculeById(vehiculeALouer.getId(), vehiculeALouer);
+//        //}
+        entity.setLocataire(locataireQuiLoue);
+        entity.setVehicule(vehiculeALouer);
+        entity.setDateModification(LocalDateTime.now());};
         return locationRepository.save(entity);
         //return null;
-    }
+    };
 
     /**
      * Fonction findById est une fonction permet de rechercher et retourner une location qui est en BDD.

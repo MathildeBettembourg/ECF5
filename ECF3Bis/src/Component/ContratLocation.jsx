@@ -152,20 +152,9 @@ export const ContratLocation = () => {
     const handleSelection = () => {
         setDisplay(false)
         setContrat({
-            ...contrat, nom: selectedLocataire.nom,
-            prenom: selectedLocataire.prenom,
-            dateDeNaissance: selectedLocataire.dateDeNaissance,
-            email: selectedLocataire.email,
-            telephone: selectedLocataire.telephone,
-            idLocataire: selectedLocataire.id, 
-            marque: (selectedVehicule.marque),
-            modele: (selectedVehicule.modele),
-            immatriculation: (selectedVehicule.immatriculation),
-            etat: (selectedVehicule.etat),
-            prixJournee: (selectedVehicule.prix),
-            disponibilite: (selectedVehicule.disponibilite),
-            type: (selectedVehicule.type),
-            idVehicule: (selectedVehicule.id)
+            ...contrat,
+            locataire:{...contrat.locataire, id:selectedLocataire.id},
+            vehicule:{...contrat.vehicule, idVehicule: (selectedVehicule.id)}
         })
     }
 
