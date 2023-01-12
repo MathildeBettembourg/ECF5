@@ -5,7 +5,7 @@ FROM openjdk:18
 WORKDIR /app
 
 # apres avoir la commande ./mvnw package clean qui met l'application dans un package, ce package compresse l'application, le maven, et le stock dans un zip qui, une fois executé lance spring
-COPY ./target/demo-0.0.1-SNAPSHOT.jar /app.jar
+COPY ./target/demo-0.0.1-SNAPSHOT.jar app.jar
 
 # Expose le port 8080 qui est le port choisis pour l'api, celle avec laquelle va communiquer le back
 EXPOSE 8080
